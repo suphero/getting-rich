@@ -1,1 +1,1 @@
-# getting-rich
+# Getting Rich
