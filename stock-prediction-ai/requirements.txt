@@ -1,9 +1,0 @@
-pandas
-utils
-numpy
-mxnet
-seaborn
-matplotlib
-sklearn
-xgboost
-statsmodels
