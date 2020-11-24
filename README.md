@@ -6,6 +6,10 @@
 
 Paper results are possibly affected by data leakeage. Train data and test data may be overfit.
 
+### Stock Selection A Framework
+
+Compare different implemented algorithms. Pkl is not common file type. filter.npy seems like a magic file without implementation details. Tested in chinese data and seems legit.
+
 ### Stock Prediction AI
 
 Lots of missing codes & parts exists. Using FFT is problemmatic because it contains future data.
