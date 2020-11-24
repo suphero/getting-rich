@@ -72,3 +72,4 @@ Lots of missing codes & parts exists. Using FFT is problemmatic because it conta
 - Proximal Policy Optimization (PPO)
 - Bayesian optimisation
   - Gaussian process
+- Random Forests
