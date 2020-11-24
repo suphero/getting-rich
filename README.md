@@ -1,5 +1,15 @@
 # Getting Rich
 
+## Key Notes
+
+### Reproduce Stock Market Direction Random Forests
+
+Paper results are possibly affected by data leakeage. Train data and test data may be overfit.
+
+### Stock Prediction AI
+
+Lots of missing codes & parts exists. Using FFT is problemmatic because it contains future data.
+
 ## Possible to use
 
 - Technical indicators
