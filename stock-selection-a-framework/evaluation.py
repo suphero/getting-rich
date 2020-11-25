@@ -29,12 +29,12 @@ from keras.layers.normalization import BatchNormalization
 from keras import regularizers
 from keras.optimizers import SGD
 from keras.utils import to_categorical
-# Random Forest 
+# Random Forest
 from sklearn.ensemble import RandomForestRegressor
 
 class EvaluationClass:
     def __init__( self, X_train, Y_train, X_test, Y_test, model_type, save_computaion=False):
-        
+
         if model_type == 1: # Logistic Regression
             input_shape = np.shape(X_train)[1]
             model = Sequential()
@@ -46,7 +46,7 @@ class EvaluationClass:
             self.Y_test = Y_test
             self.X_train = X_train
             self.X_test = X_test
-            
+
         elif model_type == 2: # Deep Learning Model
             input_shape = np.shape(X_train)[1]
             model = Sequential()
@@ -67,10 +67,10 @@ class EvaluationClass:
             model = RandomForestRegressor(n_estimators = 100, max_depth = 4)
             self.model = model
             self.Y_train = Y_train
-            self.Y_test = Y_test  
+            self.Y_test = Y_test
             self.X_train = X_train
             self.X_test = X_test
-            
+
         else : # Stacking
             # NN
             input_shape = np.shape(X_train)[1]
@@ -104,12 +104,12 @@ class EvaluationClass:
 
         self.model_type = model_type
         self.save_computaion = save_computaion
-    
-    
+
+
     """Definition of the Back Test System"""
     def evalu_sta(self):
-    
-        """*********************Training*********************"""    
+
+        """*********************Training*********************"""
         if (self.model_type == 1) or (self.model_type == 2):
             if self.save_computaion: # For GA Feature Selection
                 self.model.fit(self.X_train, self.Y_train, epochs=5, batch_size=128, verbose=0)
@@ -124,8 +124,8 @@ class EvaluationClass:
             Y2 = self.model2.predict( self.X_train3 )
             X3 = np.array( [ [ Y1[i], Y2[i]] for i in range(len(Y1))] )
             self.model3.fit(X3, self.Y_train3, epochs=30, batch_size=128, verbose=1)
-    
-    
+
+
         """*********************Prediction*********************"""
         if self.model_type == 1 or self.model_type == 3:
             Y_continuous = self.model.predict( self.X_test )
@@ -140,18 +140,18 @@ class EvaluationClass:
             Y_continuous = self.model3.predict( X3 )
             Y_test = self.Y_test
         Y_discrete = np.round( Y_continuous )
-    
+
         """*********************Statistical Evaluating*********************"""
         if self.save_computaion:
            # AUC
             AUC = roc_auc_score(Y_test, Y_continuous)
-            return AUC 
+            return AUC
         else:
             # TP; FP; FN; TN
             TP, FP, FN, TN = 0, 0, 0, 0
             for i in range( len(Y_discrete) ):
                 if Y_discrete[i] == Y_test[i]:
-                    if Y_discrete[i] == 1: 
+                    if Y_discrete[i] == 1:
                         TP += 1
                     else:
                         TN += 1
@@ -160,11 +160,11 @@ class EvaluationClass:
                         FP += 1
                     else:
                         FN += 1
-            
+
             # Accuracy
             Accuracy = (TP+TN)/(TP+TN+FP+FN)
             # Precision
-            Precision = TP/(TP+FP) 
+            Precision = TP/(TP+FP)
             #Recall
             Recall = TP/(TP+FN)
             # F1-score
@@ -176,9 +176,9 @@ class EvaluationClass:
             # AUC
             AUC = roc_auc_score(Y_test, Y_continuous)
             return Accuracy, Precision, Recall, F1, TPR, FPR, AUC
-        
+
     def evalu_por( X_test_portfolio, X_test_portfolio_masked, Y_test_portfolio, model_collection, Q, Start_date):
-        
+
         figure = (plt.figure(figsize=(15,6))).add_subplot(111)
         for i in range(len(model_collection)):
             name, model = model_collection[i]
@@ -195,14 +195,14 @@ class EvaluationClass:
                 Y_continuous2 = model.model2.predict( X )
                 X3 = np.array( [ [ Y_continuous1[i], Y_continuous2[i]] for i in range(len(Y_continuous1))] )
                 Y_continuous = model.model3.predict( X3 )
-            
+
             ranking = (-Y_continuous).argsort()
             ranking = ranking[ 0 :np.int( np.round(Q*len(Y_test_portfolio))) ]
             if i == 0 or i == 3 or i == 4 or i==7:
                 Y_continuous = np.array([ ( Y_continuous[i][0] if (i in ranking) else 0 ) for i in range(len(Y_continuous))])
             else:
                 Y_continuous = np.array([ ( Y_continuous[i] if (i in ranking) else 0 ) for i in range(len(Y_continuous))])
-                
+
             Y_continuous = Y_continuous/sum(Y_continuous)
             curve = EvaluationClass._curve( Y_continuous, Y_test_portfolio)
             figure.plot( curve , label = name )
@@ -216,8 +216,8 @@ class EvaluationClass:
         figure.set_position([box.x0,box.y0,box.width*0.8,box.height])
         figure.legend(loc='center left',bbox_to_anchor=(1.0,0.5))
         plt.savefig(Start_date+".png",dpi=300)
-        plt.show() 
-        
+        plt.show()
+
     def _curve( portfolio, price):
         total = 100000
         curve = []

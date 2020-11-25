@@ -1,11 +1,11 @@
 """
 A Machine Learning Framework for Stock Selection
-    
+
 Authors:
-XingYu Fu; JinHong Du; YiFeng Guo; MingWen Liu; Tao Dong; XiuWen Duan; 
+XingYu Fu; JinHong Du; YiFeng Guo; MingWen Liu; Tao Dong; XiuWen Duan;
 
 Institutions:
-AI&Fintech Lab of Likelihood Technology; 
+AI&Fintech Lab of Likelihood Technology;
 Gradient Trading;
 Sun Yat-sen University;
 
@@ -30,7 +30,7 @@ def load_tail( start, sample_num, F, Q, Sequential = False):
     """Specify the data path"""
     path_factor = r"./database/factor"
     path_price  = r"./database/price"
-    
+
     """Loading Data"""
     Factor = []
     Price = []
@@ -49,21 +49,21 @@ def load_tail( start, sample_num, F, Q, Sequential = False):
             else:
                 y = pd.read_csv( path_price + '/'+ data_name, header = None)
                 Price.append(y)
-                
+
             flag += 1
-    
+
         if factor_count == sample_num+1:
             Factor = Factor[:-1]
             break
-    
-    
+
+
     """Data Regularization"""
     X_return = []
     Y_return = []
     for t in range( len(Factor) ):
         X = np.array( Factor[t], dtype=object )
         P = [ np.array( Price[i], dtype=object ) for i in range(F*t,F*t+F) ]
-      
+
         # Step1: Find the stocks that appear in factor matrix and price vectors at the same time.
         n_x = set( X[:,0] )
         name_p = [ set(pp[:,0]) for pp in P]
@@ -85,17 +85,17 @@ def load_tail( start, sample_num, F, Q, Sequential = False):
                 continue
         XX = np.array(XX, dtype = np.float)
         YY = np.array(YY, dtype = np.float)
-        
+
         # Step2: Replace nan with column average
         XX = np.where(np.isnan(XX), np.ma.array(XX, mask=np.isnan(XX)).mean(axis=0), XX)
-        
+
         # Step3: Factor Normalization
         for j in range( len( XX[0] ) ):
             max_j = max( XX[:,j] )
             min_j = min( XX[:,j] )
             for i in range( len( XX ) ):
                 XX[i][j] = (XX[i][j]-min_j)/(max_j-min_j)
-        
+
         # Step4: Standard Deviation; Return_Rate; Anomaly Filtering;
         Filter = [True for y in YY]
         return_std = []
@@ -103,23 +103,23 @@ def load_tail( start, sample_num, F, Q, Sequential = False):
             y = YY[i]
             mean = sum( y )/np.float( len(y) )
             std = sqrt( sum([ (price-mean)**2 for price in y])/np.float( len(y) ) )
-            
+
             if std == 0:
                 Filter[i] = False
-                
+
             if y[0]!=0:
                 return_rate = y[-1]/y[0]
             else:
                 return_rate = np.nan
                 Filter[i] = False
-                
+
             return_std.append( ( return_rate, std) )
-        
+
         XX = XX[ Filter ]
         return_std = np.array( return_std )
         return_std = return_std[ Filter ]
         YY = np.array( [ pair[0]/pair[1] for pair in return_std] )
-        
+
         # Step5: Tail Set Construction
         XX = XX[ (-YY).argsort() ]
         bd = np.int(np.round( len(XX)*Q ))
@@ -130,14 +130,14 @@ def load_tail( start, sample_num, F, Q, Sequential = False):
         permutation = np.random.permutation(2*bd)
         XX = XX[permutation]
         YY = YY[permutation]
-        
+
         if t == 0:
             X_return = XX
             Y_return = YY
         else:
             X_return = np.concatenate((X_return, XX))
             Y_return = np.concatenate((Y_return, YY))
-        
+
     # Shuffle
     if Sequential:
         pass
@@ -153,7 +153,7 @@ def load_whole( start, F):
     """Specify the data path"""
     path_factor = r"./database/factor"
     path_price  = r"./database/price"
-    
+
     """Loading Data"""
     Factor = []
     Price = []
@@ -174,11 +174,11 @@ def load_whole( start, F):
             flag += 1
         else:
             continue
-    
+
     """Data Regularization"""
     Factor = np.array( Factor, dtype = object)
     Price = [ np.array( Price[t], dtype=object ) for t in range(F) ]
-      
+
     # Step1: Find the stocks that appear in factor matrix and price vectors at the same time.
     n_x = set( Factor[:,0] )
     n_p_list = [ set(p_t[:,0]) for p_t in Price]
@@ -200,17 +200,17 @@ def load_whole( start, F):
             continue
     XX = np.array(XX, dtype = np.float)
     YY = np.array(YY, dtype = np.float)
-        
+
     # Step2: Replace nan with column average
     XX = np.where(np.isnan(XX), np.ma.array(XX, mask=np.isnan(XX)).mean(axis=0), XX)
-        
+
     # Step3: Factor Normalization
     for j in range( len( XX[0] ) ):
         max_j = max( XX[:,j] )
         min_j = min( XX[:,j] )
         for i in range( len( XX ) ):
             XX[i][j] = (XX[i][j]-min_j)/(max_j-min_j)
-        
+
     # Step4: Standard Deviation; Return_Rate; Anomaly Filtering;
     Filter = [True for y in YY]
     for i in range(len(YY)):
@@ -222,11 +222,11 @@ def load_whole( start, F):
         variance = sum( [ (p-mean)**2 for p in price_vector] )
         if variance == 0:
             Filter[i] = False
-                
+
     XX = XX[ Filter ]
     YY = YY[ Filter ]
-        
-    
+
+
     # Step5: Shuffle
     permutation = np.random.permutation(XX.shape[0])
     XX = XX[permutation]
