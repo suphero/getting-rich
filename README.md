@@ -8,7 +8,7 @@ Paper results are possibly affected by data leakeage. Train data and test data m
 
 ### Stock Selection A Framework
 
-Compare different implemented algorithms. Pkl is not common file type. filter.npy seems like a magic file without implementation details. Tested in chinese data and seems legit.
+Compare different implemented algorithms. Genetic Algorithms Feature selector (filter.npy) should be trained for different data (obviously). Data pipeline is not clear. It uses 244 different indicators.
 
 ### Stock Prediction AI
 

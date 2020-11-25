@@ -177,7 +177,7 @@ class EvaluationClass:
             AUC = roc_auc_score(Y_test, Y_continuous)
             return Accuracy, Precision, Recall, F1, TPR, FPR, AUC
 
-    def evalu_por( X_test_portfolio, X_test_portfolio_masked, Y_test_portfolio, model_collection, Q, Start_date):
+    def evalu_por(self, X_test_portfolio, X_test_portfolio_masked, Y_test_portfolio, model_collection, Q, Start_date):
 
         figure = (plt.figure(figsize=(15,6))).add_subplot(111)
         for i in range(len(model_collection)):
@@ -204,10 +204,10 @@ class EvaluationClass:
                 Y_continuous = np.array([ ( Y_continuous[i] if (i in ranking) else 0 ) for i in range(len(Y_continuous))])
 
             Y_continuous = Y_continuous/sum(Y_continuous)
-            curve = EvaluationClass._curve( Y_continuous, Y_test_portfolio)
+            curve = self._curve( Y_continuous, Y_test_portfolio)
             figure.plot( curve , label = name )
         Y_continuous = np.ones( len(Y_test_portfolio) ) / len(Y_test_portfolio)
-        curve = EvaluationClass._curve( Y_continuous, Y_test_portfolio)
+        curve = self._curve( Y_continuous, Y_test_portfolio)
         figure.plot( curve , label = "Average" )
         plt.title("Start Date:" + Start_date )
         plt.xlabel("Time")
@@ -218,7 +218,7 @@ class EvaluationClass:
         plt.savefig(Start_date+".png",dpi=300)
         plt.show()
 
-    def _curve( portfolio, price):
+    def _curve(self, portfolio, price):
         total = 100000
         curve = []
         curve.append( total )
