@@ -6,6 +6,10 @@
 
 Paper results are possibly affected by data leakeage. Train data and test data may be overfit.
 
+### Stock Prediction Models
+
+Lots of models in a single repositorty. Working but improperly implemented examples. More than 2K stars.
+
 ### Stock Selection A Framework
 
 Compare different implemented algorithms. Genetic Algorithms Feature selector (filter.npy) should be trained for different data (obviously). Data pipeline is not clear. It uses 244 different indicators.
