@@ -26,7 +26,7 @@ class Agent:
 
     def act(self, sequence):
         decision, buy = self.model.predict(np.array(sequence))
-        return np.argmax(decision[0]), buy[0]
+        return np.argmax(decision[0]), int(buy[0])
 
     def get_reward(self, weights):
         starting_money = self.initial_money
@@ -38,8 +38,8 @@ class Agent:
         for t in range(0, self.data_len, self.skip):
             action, buy = self.act(state)
             next_state = hp.get_state(self.close, t + 1, self.window_size + 1)
-            max_buy = current_money / self.close[t]
             if action == 1:
+                max_buy = current_money / self.close[t] 
                 if buy < 0:
                     buy = 1
                 if buy > max_buy:
@@ -60,7 +60,7 @@ class Agent:
         return ((current_money - starting_money) / starting_money) * 100
 
     def fit(self, iterations, checkpoint):
-        self.es.train(iterations, print_every=checkpoint)
+        self.es.train(iterations, print_every = checkpoint)
 
     def simulate(self):
         starting_money = self.initial_money
@@ -73,8 +73,8 @@ class Agent:
         for t in range(0, self.data_len, self.skip):
             action, buy = self.act(state)
             next_state = hp.get_state(self.close, t + 1, self.window_size + 1)
-            max_buy = current_money / self.close[t]
             if action == 1:
+                max_buy = current_money / self.close[t] 
                 if buy < 0:
                     buy = 1
                 if buy > max_buy:
@@ -115,13 +115,13 @@ class Agent:
             '\ntotal gained %f, total investment %f %%'
             % (current_money - starting_money, invest)
         )
-        plt.figure(figsize=(20, 10))
-        plt.plot(self.close, label='true close', c='g')
+        plt.figure(figsize = (20, 10))
+        plt.plot(self.close, label = 'true close', c = 'g')
         plt.plot(
-            self.close, 'X', label='predict buy', markevery=states_buy, c='b'
+            self.close, 'X', label = 'predict buy', markevery = states_buy, c = 'b'
         )
         plt.plot(
-            self.close, 'o', label='predict sell', markevery=states_sell, c='r'
+            self.close, 'o', label = 'predict sell', markevery = states_sell, c = 'r'
         )
         plt.legend()
         plt.show()
