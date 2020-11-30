@@ -141,7 +141,7 @@ class Agent:
 
     def print_asset_value(self):
         plt.figure(figsize = (20, 10))
-        plt.plot(self.asset_values, label = 'asset value', c = 'g')
+        plt.plot(self.asset_values, label = 'Asset Value')
 
-        plt.legend()
+        plt.legend(loc='upper left')
         plt.show()
