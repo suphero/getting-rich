@@ -9,12 +9,13 @@ class Agent:
     SIGMA = 0.1
     LEARNING_RATE = 0.03
 
-    def __init__(self, model, money, close, window_size, skip):
+    def __init__(self, model, money, close, window_size, skip, commission_rate):
         self.model = model
         self.initial_money = money
         self.close = close
         self.window_size = window_size
         self.skip = skip
+        self.commission_rate = commission_rate
         self.data_len = len(close) - 1
         self.es = DeepEvolutionStrategy(
             self.model.get_weights(),
@@ -38,22 +39,25 @@ class Agent:
         for t in range(0, self.data_len, self.skip):
             action, buy = self.act(state)
             next_state = hp.get_state(self.close, t + 1, self.window_size + 1)
+            iter_close = self.close[t]
             if action == 1:
-                max_buy = current_money / self.close[t] 
+                ask_price = iter_close * (1 + self.commission_rate)
+                max_buy = current_money / ask_price
                 if buy < 0:
                     buy = 1
                 if buy > max_buy:
                     buy_units = max_buy
                 else:
                     buy_units = buy
-                total_buy = buy_units * self.close[t]
+                total_buy = buy_units * ask_price
                 current_money -= total_buy
                 inventory.append(total_buy)
                 quantity += buy_units
             elif action == 2 and len(inventory) > 0:
+                bid_price = iter_close * (1 - self.commission_rate)
                 sell_units = quantity
                 quantity -= sell_units
-                total_sell = sell_units * self.close[t]
+                total_sell = sell_units * bid_price
                 current_money += total_sell
 
             state = next_state
@@ -73,8 +77,10 @@ class Agent:
         for t in range(0, self.data_len, self.skip):
             action, buy = self.act(state)
             next_state = hp.get_state(self.close, t + 1, self.window_size + 1)
+            iter_close = self.close[t]
             if action == 1:
-                max_buy = current_money / self.close[t] 
+                ask_price = iter_close * (1 + self.commission_rate)
+                max_buy = current_money / ask_price 
                 if buy < 0:
                     buy = 1
                 if buy > max_buy:
@@ -82,7 +88,7 @@ class Agent:
                 else:
                     buy_units = buy
 
-                total_buy = buy_units * self.close[t]
+                total_buy = buy_units * ask_price
                 current_money -= total_buy
                 inventory.append(total_buy)
                 quantity += buy_units
@@ -92,12 +98,13 @@ class Agent:
                     % (t, buy_units, total_buy, current_money, quantity)
                 )
             elif action == 2 and len(inventory) > 0:
+                bid_price = iter_close * (1 - self.commission_rate)
                 bought_price = inventory.pop(0)
                 sell_units = quantity
                 if sell_units < 0:
                     continue
                 quantity -= sell_units
-                total_sell = sell_units * self.close[t]
+                total_sell = sell_units * bid_price
                 current_money += total_sell
                 states_sell.append(t)
                 try:
