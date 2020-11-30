@@ -17,6 +17,9 @@ class Agent:
         self.skip = skip
         self.commission_rate = commission_rate
         self.data_len = len(close) - 1
+        self.states_sell = []
+        self.states_buy = []
+        self.asset_values = []
         self.es = DeepEvolutionStrategy(
             self.model.get_weights(),
             self.get_reward,
@@ -70,8 +73,6 @@ class Agent:
         starting_money = self.initial_money
         current_money = self.initial_money
         state = hp.get_state(self.close, 0, self.window_size + 1)
-        states_sell = []
-        states_buy = []
         inventory = []
         quantity = 0
         for t in range(0, self.data_len, self.skip):
@@ -92,7 +93,7 @@ class Agent:
                 current_money -= total_buy
                 inventory.append(total_buy)
                 quantity += buy_units
-                states_buy.append(t)
+                self.states_buy.append(t)
                 print(
                     'day %d: buy %d units at price %f, total balance %f, quantity %f'
                     % (t, buy_units, total_buy, current_money, quantity)
@@ -106,7 +107,7 @@ class Agent:
                 quantity -= sell_units
                 total_sell = sell_units * bid_price
                 current_money += total_sell
-                states_sell.append(t)
+                self.states_sell.append(t)
                 try:
                     invest = ((total_sell - bought_price) / bought_price) * 100
                 except:
@@ -116,19 +117,31 @@ class Agent:
                     % (t, sell_units, total_sell, invest, current_money, quantity)
                 )
             state = next_state
+            asset_value = quantity * iter_close + current_money
+            self.asset_values.append(asset_value)
 
         invest = ((current_money - starting_money) / starting_money) * 100
         print(
             '\ntotal gained %f, total investment %f %%'
             % (current_money - starting_money, invest)
         )
+
+    def print_history(self):
         plt.figure(figsize = (20, 10))
         plt.plot(self.close, label = 'true close', c = 'g')
         plt.plot(
-            self.close, 'X', label = 'predict buy', markevery = states_buy, c = 'b'
+            self.close, 'X', label = 'predict buy', markevery = self.states_buy, c = 'b'
         )
         plt.plot(
-            self.close, 'o', label = 'predict sell', markevery = states_sell, c = 'r'
+            self.close, 'o', label = 'predict sell', markevery = self.states_sell, c = 'r'
         )
+
+        plt.legend()
+        plt.show()
+
+    def print_asset_value(self):
+        plt.figure(figsize = (20, 10))
+        plt.plot(self.asset_values, label = 'asset value', c = 'g')
+
         plt.legend()
         plt.show()
