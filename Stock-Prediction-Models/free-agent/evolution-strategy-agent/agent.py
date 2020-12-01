@@ -9,14 +9,16 @@ class Agent:
     SIGMA = 0.1
     LEARNING_RATE = 0.03
 
-    def __init__(self, model, money, close, window_size, skip, commission_rate):
+    def __init__(self, model, money, train_close, test_close, window_size, skip, commission_rate):
         self.model = model
         self.initial_money = money
-        self.close = close
+        self.train_close = train_close
+        self.test_close = test_close
         self.window_size = window_size
         self.skip = skip
         self.commission_rate = commission_rate
-        self.data_len = len(close) - 1
+        self.train_len = len(train_close) - 1
+        self.test_len = len(test_close) - 1
         self.states_sell = []
         self.states_buy = []
         self.asset_values = []
@@ -36,13 +38,13 @@ class Agent:
         starting_money = self.initial_money
         current_money = self.initial_money
         self.model.weights = weights
-        state = hp.get_state(self.close, 0, self.window_size + 1)
+        state = hp.get_state(self.train_close, 0, self.window_size + 1)
         inventory = []
         quantity = 0
-        for t in range(0, self.data_len, self.skip):
+        for t in range(0, self.train_len, self.skip):
             action, buy = self.act(state)
-            next_state = hp.get_state(self.close, t + 1, self.window_size + 1)
-            iter_close = self.close[t]
+            next_state = hp.get_state(self.train_close, t + 1, self.window_size + 1)
+            iter_close = self.train_close[t]
             if action == 1:
                 ask_price = iter_close * (1 + self.commission_rate)
                 max_buy = current_money / ask_price
@@ -72,13 +74,13 @@ class Agent:
     def simulate(self):
         starting_money = self.initial_money
         current_money = self.initial_money
-        state = hp.get_state(self.close, 0, self.window_size + 1)
+        state = hp.get_state(self.test_close, 0, self.window_size + 1)
         inventory = []
         quantity = 0
-        for t in range(0, self.data_len, self.skip):
+        for t in range(0, self.test_len, self.skip):
             action, buy = self.act(state)
-            next_state = hp.get_state(self.close, t + 1, self.window_size + 1)
-            iter_close = self.close[t]
+            next_state = hp.get_state(self.test_close, t + 1, self.window_size + 1)
+            iter_close = self.test_close[t]
             if action == 1:
                 ask_price = iter_close * (1 + self.commission_rate)
                 max_buy = current_money / ask_price 
@@ -128,12 +130,12 @@ class Agent:
 
     def print_history(self):
         plt.figure(figsize = (20, 10))
-        plt.plot(self.close, label = 'true close', c = 'g')
+        plt.plot(self.test_close, label = 'true close', c = 'g')
         plt.plot(
-            self.close, 'X', label = 'predict buy', markevery = self.states_buy, c = 'b'
+            self.test_close, 'X', label = 'predict buy', markevery = self.states_buy, c = 'b'
         )
         plt.plot(
-            self.close, 'o', label = 'predict sell', markevery = self.states_sell, c = 'r'
+            self.test_close, 'o', label = 'predict sell', markevery = self.states_sell, c = 'r'
         )
 
         plt.legend()
