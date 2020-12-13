@@ -1,0 +1,111 @@
+# Check missing / existing files
+
+Source: https://mlfinlab.readthedocs.io/en/latest/getting_started/research_notebooks.html#available-notebooks
+
+- [x] Advances in Financial Machine Learning
+  - [x] Backtest Statistics
+    - [x] Chapter14_BacktestStatistics.ipynb
+  - [x] Bet Sizing
+    - [x] Chapter10_Exercises.ipynb
+    - [x] Chapter10_Exercises (mlfinlab).ipynb
+    - [x] ef3m_testing.ipynb
+  - [x] Cross-Validation in Finance
+    - [x] Chapter7_Exercises_CrossValidation.ipynb
+  - [x] Ensemble Methods
+    - [x] Ensemble_Methods.ipynb
+  - [x] Feature Importance
+    - [x] Chapter8_Exercises_Feature_Importance.ipynb
+    - [x] Cluster_Feature_Importance.ipynb
+  - [x] Financial Data Structures
+    - [x] Dollar-Imbalance-Bars.ipynb
+    - [x] ETF_trick_hedge.ipynb
+    - [x] Futures_Roll_Trick.ipynb
+    - [x] Getting Started.ipynb
+    - [x] Sample_Techniques.ipynb
+    - [x] tutorial_data
+      - [x] dollar_bars.csv
+      - [x] ES_Trades.zip
+      - [x] tick_bars.csv
+      - [x] time_bars.csv
+      - [x] volume_bars.csv
+  - [x] Fractionally Differentiated Features
+    - [x] Chapter5_Exercises.ipynb
+  - [x] Hyper-Parameter Tuning
+    - [x] Hyperparameter Tuning with CV.ipynb
+  - [x] Labelling
+    - [x] BBand-Question.ipynb
+    - [x] Chapter3-Part1.ipynb
+    - [x] Meta-Labels-MNIST.ipynb
+    - [x] Trend-Follow-Question.ipynb
+  - [x] Machine Learning Asset Allocation
+    - [x] Chapter16.ipynb
+  - [x] Microstructural Features
+    - [x] Chapter19-Questions.ipynb
+    - [x] Microstructural-Features.ipynb
+  - [x] Sample Weights
+    - [x] Chapter4_Exercises.ipynb
+    - [x] Sequential_Bootstrapping.ipynb
+    - [x] Trend-Follow-Question-Extended-SB-Cross-Val.ipynb
+  - [x] Understanding Strategy Risk
+    - [x] Chapter15_Exercises_UnderstandingStrategyRisk.ipynb
+- [x] A Framework for Backtest Overfitting
+  - [x] Backtest Overfitting.ipynb
+- [ ] Codependence
+  - [x] Codependence_by_Marti.ipynb
+  - [ ] Optimal_Transport.ipynb
+- [ ] Data Generation
+  - [ ] Bootstrap.ipynb
+  - [ ] CorrGAN.ipynb
+  - [ ] Correlated_Random_Walks.ipynb
+  - [ ] HCBM.ipynb
+  - [ ] Vines.ipynb
+- [x] Labeling
+  - [x] Labeling_vs_Benchmark.ipynb
+  - [x] Labels_Excess_Over_Mean.ipynb
+  - [x] Labels_Excess_Over_Median.ipynb
+  - [x] Labels_Fixed_Horizon.ipynb
+  - [x] Labels_Matrix_Flags.ipynb
+  - [x] Labels_Raw_Return.ipynb
+  - [x] Labels_Tail_Sets.ipynb
+- [ ] Networks
+  - [ ] MST.ipynb
+  - [ ] PMFG.ipynb
+- [x] Online Portfolio Selection
+  - [x] Data Selection.ipynb
+  - [x] Introduction to Online Portfolio Selection.ipynb
+  - [x] olps_create_obj.py
+  - [x] olps_tuning.py
+  - [x] Online Portfolio Selection - Mean Reversion.ipynb
+  - [x] Online Portfolio Selection - Momentum.ipynb
+  - [x] Online Portfolio Selection - Pattern Matching.ipynb
+- [ ] Optimal Mean Reversion
+  - [ ] OU_model.ipynb
+- [ ] Portfolio Optimisation Tutorials
+  - [x] HERC_&_HRP_Comparison.ipynb
+  - [x] Hierarchical_Equal_Risk_Contribution (HERC).ipynb
+  - [x] Hierarchical_Risk_Parity_(HRP).ipynb
+  - [ ] Mean_Variance_Optimisation_(MVO).ipynb
+  - [x] Nested_Clustered_Optimisation_(NCO).ipynb
+  - [x] Risk_Estimators.ipynb
+  - [x] Theory_Implied_Correlation_(TIC).ipynb
+- [x] Sample-Data
+  - [x] assetalloc.csv
+  - [x] classification_tree.csv
+  - [x] dollar_bars.csv
+  - [x] dollar_bars_ex_2.2.csv
+  - [x] eurostoxx.csv
+  - [x] eur_usd.csv
+  - [x] imbalance_bars_3_100000.csv
+  - [x] README.md
+  - [x] results_3-5.csv
+  - [x] spx.csv
+  - [x] stock_prices.csv
+  - [x] tick_bars.csv
+  - [x] volume_bars.csv
+- [x] Tick-Data-Notes
+  - [x] final.twj
+  - [x] Futures_File_Format_Guide.pdf
+  - [x] images
+    - [x] condition_codes.png
+    - [x] field_descriptions.png
+  - [x] README.md
