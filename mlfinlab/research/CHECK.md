@@ -3,51 +3,51 @@
 Source: https://mlfinlab.readthedocs.io/en/latest/getting_started/research_notebooks.html#available-notebooks
 
 - [x] Advances in Financial Machine Learning
-  - [x] Backtest Statistics
-    - [x] Chapter14_BacktestStatistics.ipynb
-  - [x] Bet Sizing
-    - [x] Chapter10_Exercises.ipynb
-    - [x] Chapter10_Exercises (mlfinlab).ipynb
-    - [x] ef3m_testing.ipynb
-  - [x] Cross-Validation in Finance
-    - [x] Chapter7_Exercises_CrossValidation.ipynb
-  - [x] Ensemble Methods
-    - [x] Ensemble_Methods.ipynb
-  - [x] Feature Importance
-    - [x] Chapter8_Exercises_Feature_Importance.ipynb
-    - [x] Cluster_Feature_Importance.ipynb
-  - [x] Financial Data Structures
-    - [x] Dollar-Imbalance-Bars.ipynb
-    - [x] ETF_trick_hedge.ipynb
-    - [x] Futures_Roll_Trick.ipynb
+  - [x] Chapter 2 - Financial Data Structures
     - [x] Getting Started.ipynb
-    - [x] Sample_Techniques.ipynb
+    - [x] Dollar-Imbalance-Bars.ipynb - pg 30
+    - [x] Futures_Roll_Trick.ipynb pg 37
+    - [x] ETF_trick_hedge.ipynb - pg 40
+    - [x] Sample_Techniques.ipynb - pg 40
     - [x] tutorial_data
       - [x] dollar_bars.csv
       - [x] ES_Trades.zip
       - [x] tick_bars.csv
       - [x] time_bars.csv
       - [x] volume_bars.csv
-  - [x] Fractionally Differentiated Features
-    - [x] Chapter5_Exercises.ipynb
-  - [x] Hyper-Parameter Tuning
-    - [x] Hyperparameter Tuning with CV.ipynb
-  - [x] Labelling
-    - [x] BBand-Question.ipynb
-    - [x] Chapter3-Part1.ipynb
-    - [x] Meta-Labels-MNIST.ipynb
-    - [x] Trend-Follow-Question.ipynb
-  - [x] Machine Learning Asset Allocation
-    - [x] Chapter16.ipynb
-  - [x] Microstructural Features
-    - [x] Chapter19-Questions.ipynb
-    - [x] Microstructural-Features.ipynb
-  - [x] Sample Weights
-    - [x] Chapter4_Exercises.ipynb
-    - [x] Sequential_Bootstrapping.ipynb
+  - [x] Chapter 3 - Labelling
+    - [x] Meta-Labels-MNIST.ipynb - pg 50
+    - [x] Chapter3-Part1.ipynb - pg 55
+    - [x] Trend-Follow-Question.ipynb - pg 55
+    - [x] BBand-Question.ipynb - pg 55
+  - [x] Chapter 4 - Sample Weights
+    - [x] Chapter4_Exercises.ipynb - pg 59
+    - [x] Sequential_Bootstrapping.ipynb - pg 59-73
     - [x] Trend-Follow-Question-Extended-SB-Cross-Val.ipynb
-  - [x] Understanding Strategy Risk
-    - [x] Chapter15_Exercises_UnderstandingStrategyRisk.ipynb
+  - [x] Chapter 5 - Fractionally Differentiated Features
+    - [x] Chapter5_Exercises.ipynb - pg 75
+  - [x] Chapter 6 - Ensemble Methods
+    - [x] Ensemble_Methods.ipynb - pg 101
+  - [x] Chapter 7 - Cross-Validation in Finance
+    - [x] Chapter7_Exercises_CrossValidation.ipynb - pg 110
+  - [x] Chapter 8 - Feature Importance
+    - [x] Cluster_Feature_Importance.ipynb - pg 113
+    - [x] Chapter8_Exercises_Feature_Importance.ipynb - pg 127
+  - [x] Chapter 9 - Hyper-Parameter Tuning
+    - [x] Hyperparameter Tuning with CV.ipynb - pg 135
+  - [x] Chapter 10 - Bet Sizing
+    - [x] ef3m_testing.ipynb - pg 141
+    - [x] Chapter10_Exercises.ipynb - pg 148
+    - [x] Chapter10_Exercises (mlfinlab).ipynb - pg 148
+  - [x] Chapter 14 - Backtest Statistics
+    - [x] Chapter14_BacktestStatistics.ipynb - pg 208
+  - [x] Chapter 15 - Understanding Strategy Risk
+    - [x] Chapter15_Exercises_UnderstandingStrategyRisk.ipynb - pg 219
+  - [x] Chapter 16 - Machine Learning Asset Allocation
+    - [x] Chapter16.ipynb - pg 271
+  - [x] Chapter 19 - Microstructural Features
+    - [x] Microstructural-Features.ipynb - pg 281
+    - [x] Chapter19-Questions.ipynb - pg 296
 - [x] A Framework for Backtest Overfitting
   - [x] Backtest Overfitting.ipynb
 - [ ] Codependence
